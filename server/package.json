@@ -1,0 +1,31 @@
+{
+  "name": "yinyue-activity-server",
+  "version": "1.0.0",
+  "description": "YinYue Activity server side",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dragonero2704/YinYue-activity.git"
+  },
+  "keywords": [
+    "server",
+    "javascript",
+    "discord.js",
+    "discord-activity"
+  ],
+  "author": "dragonero2704",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dragonero2704/YinYue-activity/issues"
+  },
+  "homepage": "https://github.com/dragonero2704/YinYue-activity#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "node-fetch": "^3.3.2"
+  }
+}
