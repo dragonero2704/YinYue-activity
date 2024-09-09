@@ -1,22 +1,45 @@
 import express from "express";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
-
+import winston from "winston";
+import path, { dirname } from "path"
 dotenv.config({ path: "../.env" });
+const logger = winston.createLogger({
+  transports:[
+    new winston.transports.Console(),
+    new winston.transports.File({filename:"server.log"})
+  ],
+  format: winston.format.combine(
+    winston.format.timestamp({
+      format: 'YYYY-MM-DD hh:mm:ss.SSS',
+    }),
+    winston.format.colorize({all:true}),
+    winston.format.align(),
+    winston.format.printf(info=>`[${info.timestamp}] ${info.level}: ${info.message}`)
+  )
+  
+})
 
-const app = express();
+const server = express();
 const port = 3001;
 
-// Allow express to parse JSON bodies
-app.use(express.json());
 
-app.post("/api/token", async (req, res) => {
+
+// Allow express to parse JSON bodies
+server.use(express.json());
+server.use(express.static('public'))
+server.set("view-engine", "ejs")
+server.get("/", (req, res)=>{
+  res.sendFile(import.meta.dirname + "/index.html")
+})
+
+server.post("/api/token", async (req, res) => {
   
   // Exchange the code for an access_token
   const response = await fetch(`https://discord.com/api/oauth2/token`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "serverlication/x-www-form-urlencoded",
     },
     body: new URLSearchParams({
       client_id: process.env.VITE_DISCORD_CLIENT_ID,
@@ -34,6 +57,11 @@ app.post("/api/token", async (req, res) => {
   res.send({access_token});
 });
 
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+import {api_ytstream} from "./yt-stream.js"
+
+
+server.use("/api/yt-stream", api_ytstream)
+
+server.listen(port, () => {
+  logger.info(`Server listening at http://localhost:${port}`);
 });
