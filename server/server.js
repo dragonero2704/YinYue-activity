@@ -63,5 +63,5 @@ import {api_ytstream} from "./yt-stream.js"
 server.use("/api/yt-stream", api_ytstream)
 
 server.listen(port, () => {
-  logger.info(`Server listening at http://localhost:${port}`);
+  logger.info(`Server listening at https://localhost:${port}`);
 });

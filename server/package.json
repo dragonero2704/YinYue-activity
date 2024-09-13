@@ -5,8 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch .",
-    "deploy": "node ."
+    "dev": "node --watch server.js",
+    "deploy": "node server.js"
   },
   "repository": {
     "type": "git",
