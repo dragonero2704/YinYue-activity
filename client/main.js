@@ -5,10 +5,13 @@ import "./style.css";
 
 // Instantiate the SDK
 const discordSdk = new DiscordSDK(import.meta.env.VITE_DISCORD_CLIENT_ID);
+if(false)
+{
+  setupDiscordSdk().then(() => {
+    console.log("Discord SDK is ready");
+  });
+}
 
-setupDiscordSdk().then(() => {
-  console.log("Discord SDK is ready");
-});
 
 let auth;
 
@@ -46,7 +49,7 @@ async function setupDiscordSdk() {
   // Authenticate with Discord client (using the access_token)
   auth = await discordSdk.commands.authenticate({
     access_token,
-  }).catch(authError=>console.log(authError));
+  }).catch(authError=>console.error(authError));
 
   if (auth == null) {
     throw new Error("Authenticate command failed");

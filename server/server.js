@@ -1,29 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
-import winston from "winston";
+import {logger} from "./logger.js";
 import path, { dirname } from "path"
 dotenv.config({ path: "../.env" });
-const logger = winston.createLogger({
-  transports:[
-    new winston.transports.Console(),
-    new winston.transports.File({filename:"server.log"})
-  ],
-  format: winston.format.combine(
-    winston.format.timestamp({
-      format: 'YYYY-MM-DD hh:mm:ss.SSS',
-    }),
-    winston.format.colorize({all:true}),
-    winston.format.align(),
-    winston.format.printf(info=>`[${info.timestamp}] ${info.level}: ${info.message}`)
-  )
-  
-})
+
 
 const server = express();
 const port = 3001;
-
-
 
 // Allow express to parse JSON bodies
 server.use(express.json());
