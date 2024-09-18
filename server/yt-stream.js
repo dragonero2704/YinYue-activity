@@ -5,6 +5,7 @@ import {logger} from "./logger.js"
 const router = Router()
 const cache = new Map()
 const cachettl = 60_000 // 60s
+
 router.get("/search/:query", 
   async (req, res)=>{
   const query = req.params["query"]
@@ -24,7 +25,7 @@ router.get("/search/:query",
   logger.info(`${results.length} results found`)
   cache[query] = results
   setTimeout(()=>{
-    logger.info(`Deleting cache [${query}] : timed out`)
+    logger.info(`Deleting cached results for [${query}] : timed out`)
     cache.delete(query)
   }, cachettl)
   res.send(results)
@@ -42,7 +43,7 @@ router.get("/search/:query/:limit", async (req, res)=>{
     if(!results) return
     cache[query] = results
     setTimeout(()=>{
-      logger.info(`Deleting cache [${query}] : timed out`)
+      logger.info(`Deleting cache results for [${query}] : timed out`)
       cache.delete(query)
     }, cachettl)
   }
