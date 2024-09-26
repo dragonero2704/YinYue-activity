@@ -1,17 +1,35 @@
-import { DiscordSDK } from "@discord/embedded-app-sdk";
+import { DiscordSDK, Events } from "@discord/embedded-app-sdk";
 
 import "./style.css";
 // import rocketLogo from '/rocket.png';
+/* 
+  Local development variables
+*/
+const local = true
+//
 
-// Instantiate the SDK
-const discordSdk = new DiscordSDK(import.meta.env.VITE_DISCORD_CLIENT_ID);
-if(false)
-{
-  setupDiscordSdk().then(() => {
+let users = ["Tester"]
+if(!local) {
+  // Instantiate the SDK
+  const discordSdk = new DiscordSDK(import.meta.env.VITE_DISCORD_CLIENT_ID);
+  setupDiscordSdk().then(async () => {
     console.log("Discord SDK is ready");
+    
+    // Fetch
+    const users = await discordSdk.commands.getInstanceConnectedParticipants();
+
+    // Subscribe listener
+    function updateParticipants(participants) {
+      // update users
+      let users
+      // Do something really cool
+    }
+    discordSdk.subscribe(Events.ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE, updateParticipants);
+    // Unsubscribe
+    discordSdk.unsubscribe(Events.ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE, updateParticipants);
+
   });
 }
-
 
 let auth;
 
@@ -55,9 +73,16 @@ async function setupDiscordSdk() {
     throw new Error("Authenticate command failed");
   }
 }
-
-document.querySelector('#app').innerHTML = `
-  <div>
-    <h1>Hello, World!</h1>
-  </div>
+// homepage html
+const html = `
+<div>
+    <h1>Welcome</h1>
+    <h3>Currently in activity: ${users.join(", ")}</h3>
+    
+    <input type="text">
+    <button onclick="alert('clicked')">cerca</button>
+    
+</div>
 `;
+
+document.querySelector('#app').innerHTML = html
