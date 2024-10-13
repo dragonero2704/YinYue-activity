@@ -1,4 +1,4 @@
-import { DiscordSDK } from "@discord/embedded-app-sdk";
+import { DiscordSDK, Events } from "@discord/embedded-app-sdk";
 
 async function setupDiscordSdk() {
   const discordSdk = new DiscordSDK(import.meta.env.VITE_DISCORD_CLIENT_ID);
