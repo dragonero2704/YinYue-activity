@@ -13,7 +13,6 @@ export const logger = winston.createLogger({
       winston.format.align(),
       winston.format.printf(info=>`[${info.timestamp}] ${info.level}: ${info.message}`)
     )
-    
   })
 
 

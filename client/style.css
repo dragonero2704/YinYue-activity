@@ -95,3 +95,36 @@ body{
 .center {
     text-align: center;
 }
+
+.flex{
+  display: flex;
+}
+.align-center{
+  align-items: center;
+}
+
+.justify-center{
+  justify-content: center;
+}
+
+footer{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+  height: fit-content;
+  padding: 20px;
+  text-align: center;
+}
+
+footer::before{
+  display: block;
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #2c2c2c;
+}

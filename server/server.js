@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
 import {logger} from "./logger.js";
-import path, { dirname } from "path"
+
 dotenv.config({ path: "../.env" });
 
 
@@ -18,25 +18,32 @@ server.get("/", (req, res)=>{
 })
 
 server.post("/api/token", async (req, res) => {
-  
+  logger.debug("[/api/token] route called")
+  const code = req.body.code
   // Exchange the code for an access_token
   const response = await fetch(`https://discord.com/api/oauth2/token`, {
     method: "POST",
     headers: {
-      "Content-Type": "serverlication/x-www-form-urlencoded",
+      "Content-Type": "application/x-www-form-urlencoded",
     },
     body: new URLSearchParams({
       client_id: process.env.VITE_DISCORD_CLIENT_ID,
       client_secret: process.env.DISCORD_CLIENT_SECRET,
       grant_type: "authorization_code",
-      code: req.body.code,
+      code: code,
     }),
   });
-
+  if(!response.ok)
+  {
+    logger.error(response.statusText)
+  }
   // Retrieve the access_token from the response
   const { access_token } = await response.json()
-  .catch(error=>res.status(500).send(error));
-
+  .catch(error=>{
+    res.status(500).send(error)
+    logger.error(error)
+  });
+  
   // Return the access_token to our client as { access_token: "..."}
   res.send({access_token});
 });
