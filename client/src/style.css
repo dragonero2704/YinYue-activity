@@ -3,8 +3,9 @@
     --background: #1e1e1e;
 }
 
-body{
-    font-family: "Roboto", sans-serif;
+#app
+{
+  font-family: "Roboto", sans-serif;
 }
 
 .roboto-thin {

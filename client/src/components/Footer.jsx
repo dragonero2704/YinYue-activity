@@ -1,10 +1,14 @@
 import React from "react"
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import "../style.css"
 export default function Footer(props)
 {
+    const year = new Date().getFullYear()
     return  (
         <footer>
-            <p>Copyright CC 2024</p>
+            <span>Copyright </span>
+            <FontAwesomeIcon icon="fa-brands fa-creative-commons" />
+            <span> {year}-{year+1}</span>
         </footer>
     )
 }
