@@ -1,6 +1,6 @@
 import React from "react";
 import Footer from "./components/Footer";
-import "./style.css";
+import style from "./style.module.css";
 export default function Layout({children, className})
 {
     return (

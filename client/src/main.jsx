@@ -4,13 +4,13 @@ import {createRoot} from "react-dom/client";
 import Layout from "./Layout"
 import SearchBar from "./components/SearchBar";
 import setupDiscordSdk from "./discord"
-import "./style.css";
+import style from "./style.module.css"
 // import rocketLogo from '/rocket.png';
 const root = createRoot(document.querySelector('#app'))
 
 root.render(
-    <Layout className="dark">
-        <h1 className="center">Please wait...</h1>
+    <Layout className={style.dark}>
+        <h1 className={style.center}>Please wait...</h1>
         <SearchBar/>
     </Layout>
 )
@@ -20,7 +20,7 @@ setupDiscordSdk()
     const {username} = auth.user
     root.render(
         <Layout>
-            <div className="center">
+            <div className={style.center}>
                 <h1>Discord SDK authenticated.</h1>
                 <h1>Hello {username}!</h1>
             </div>
