@@ -1,13 +1,12 @@
 import React, { useState } from "react"
 
-export default function SongEntry(props)
+export default function SongEntry({thumbnail, title})
 {
     const [query, setQuery] = useState()
     return (
-        <div>
-            <image>
-                
-            </image>
-        </div>
+        <span>
+            <img src={thumbnail}alt={title}></img>
+            <p>{title}</p>
+        </span>
     )
 }

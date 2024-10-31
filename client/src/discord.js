@@ -1,5 +1,5 @@
 import { DiscordSDK, Events } from "@discord/embedded-app-sdk";
-
+import {DiscordAuthFail} from './errors/DiscordAuthFail'
 async function setupDiscordSdk() {
   const discordSdk = new DiscordSDK(import.meta.env.VITE_DISCORD_CLIENT_ID);
   await discordSdk.ready();
@@ -40,9 +40,8 @@ async function setupDiscordSdk() {
     access_token,
   }).catch(authError=>console.error(authError));
 
-  if (auth == null) {
-    throw new Error("Authenticate command failed");
-  }
+  if (auth == null) throw DiscordAuthFail();
+  
   return {auth, discordSdk}
 }
 
